@@ -75,22 +75,42 @@ Complete documentation for the MC-ANN (Mixture Clustering-Based Attention Neural
 
 ---
 
+### 6. [TECHNICAL_GLOSSARY.md](./TECHNICAL_GLOSSARY.md)
+**Beginner-friendly explanations of ALL technical terms**
+- Machine Learning basics
+- Neural Networks concepts
+- Time Series terminology
+- Model architecture terms
+- Training & optimization
+- Evaluation metrics
+- Data processing
+- Mathematical operations
+- Programming tools
+- MC-ANN specific terms
+
+**Read this** if you're new to ML or need to understand technical jargon.
+
+---
+
 ## 🚀 Quick Start
 
-### For First-Time Users:
-1. Read [PROJECT_OVERVIEW.md](./PROJECT_OVERVIEW.md) (10 min)
-2. Follow [SETUP_AND_RUN_GUIDE.md](./SETUP_AND_RUN_GUIDE.md) (30-60 min)
-3. Run the example: `python run.py --arg_file models/Stevens_Creek.txt`
+### For First-Time Users (No ML Background):
+1. Read [TECHNICAL_GLOSSARY.md](./TECHNICAL_GLOSSARY.md) - Learn the basics (20 min)
+2. Read [PROJECT_OVERVIEW.md](./PROJECT_OVERVIEW.md) - Understand what MC-ANN is (10 min)
+3. Follow [SETUP_AND_RUN_GUIDE.md](./SETUP_AND_RUN_GUIDE.md) - Run the code (30-60 min)
+4. Reference glossary whenever you see unfamiliar terms
 
 ### For Researchers:
 1. Read [PAPER_SUMMARY.md](./PAPER_SUMMARY.md) (30 min)
 2. Read [SYSTEM_ARCHITECTURE.md](./SYSTEM_ARCHITECTURE.md) (20 min)
-3. Study the code with architecture reference
+3. Reference [TECHNICAL_GLOSSARY.md](./TECHNICAL_GLOSSARY.md) for specific terms
+4. Study the code with architecture reference
 
 ### For Developers:
 1. Read [SYSTEM_ARCHITECTURE.md](./SYSTEM_ARCHITECTURE.md) (20 min)
 2. Reference [WORKFLOW_AND_FLOWCHARTS.md](./WORKFLOW_AND_FLOWCHARTS.md) for debugging
-3. Modify code as needed
+3. Use [TECHNICAL_GLOSSARY.md](./TECHNICAL_GLOSSARY.md) as reference
+4. Modify code as needed
 
 ---
 
@@ -104,6 +124,8 @@ docs/
 ├── SYSTEM_ARCHITECTURE.md            # Technical architecture details
 ├── WORKFLOW_AND_FLOWCHARTS.md        # Visual workflows and diagrams
 ├── PAPER_SUMMARY.md                  # Research paper analysis
+├── TECHNICAL_GLOSSARY.md             # Beginner-friendly term explanations
+├── QUICK_REFERENCE.md                # Quick command reference
 └── MC-ANN_Paper.pdf                  # Original TPAMI 2025 paper
 ```
 
@@ -240,22 +262,26 @@ For questions or issues:
 ## 🎓 Learning Path
 
 ### Beginner (No ML Background)
-1. [PROJECT_OVERVIEW.md](./PROJECT_OVERVIEW.md) - What is this?
-2. [SETUP_AND_RUN_GUIDE.md](./SETUP_AND_RUN_GUIDE.md) - How to run it?
-3. Experiment with example notebook
-4. [WORKFLOW_AND_FLOWCHARTS.md](./WORKFLOW_AND_FLOWCHARTS.md) - How does it work?
+1. **[TECHNICAL_GLOSSARY.md](./TECHNICAL_GLOSSARY.md)** - Learn ML basics with simple analogies
+2. [PROJECT_OVERVIEW.md](./PROJECT_OVERVIEW.md) - What is MC-ANN?
+3. [SETUP_AND_RUN_GUIDE.md](./SETUP_AND_RUN_GUIDE.md) - How to run it?
+4. Experiment with example notebook
+5. [WORKFLOW_AND_FLOWCHARTS.md](./WORKFLOW_AND_FLOWCHARTS.md) - Visual understanding
+6. Keep glossary open as reference
 
 ### Intermediate (Some ML Knowledge)
 1. [PAPER_SUMMARY.md](./PAPER_SUMMARY.md) - Research context
 2. [SYSTEM_ARCHITECTURE.md](./SYSTEM_ARCHITECTURE.md) - Technical details
 3. [WORKFLOW_AND_FLOWCHARTS.md](./WORKFLOW_AND_FLOWCHARTS.md) - System flow
-4. Modify hyperparameters and retrain
+4. [TECHNICAL_GLOSSARY.md](./TECHNICAL_GLOSSARY.md) - Clarify specific terms
+5. Modify hyperparameters and retrain
 
 ### Advanced (ML Researcher/Engineer)
 1. [PAPER_SUMMARY.md](./PAPER_SUMMARY.md) - Full paper analysis
 2. [SYSTEM_ARCHITECTURE.md](./SYSTEM_ARCHITECTURE.md) - Implementation details
-3. Study source code with architecture reference
-4. Extend to new domains or improve architecture
+3. [TECHNICAL_GLOSSARY.md](./TECHNICAL_GLOSSARY.md) - Quick reference
+4. Study source code with architecture reference
+5. Extend to new domains or improve architecture
 
 ---
 
