@@ -6,14 +6,14 @@ import torch
 import torch.nn as nn
 import pandas as pd
 import random
-from ..utils.utils2 import (
+from utils.utils2 import (
     r_log_std_denorm_dataset,
     cos_date,
     sin_date,
     adjust_learning_rate,
 )
-from ..utils.metric import metric
-from .GMM_Model5 import EncoderLSTM, DecoderLSTM
+from utils.metric import metric
+from models.GMM_Model5 import EncoderLSTM, DecoderLSTM
 from sklearn.metrics import mean_absolute_percentage_error
 import zipfile
 import logging
@@ -388,50 +388,88 @@ class DAN:
         return rmse, mape
 
     def train(self):
+        print("\n" + "="*70)
+        print("STARTING TRAINING")
+        print("="*70)
 
         num_epochs = self.epochs
         early_stop = 0
         old_val_loss = 1000
         min_RMSE = 500000
+        print(f"Training configuration: epochs={num_epochs}, batch_size={self.batchsize}")
+        print(f"DataLoader info: len={len(self.dataloader)}")
 
         for epoch in range(num_epochs):
+            print(f"\n{'='*70}")
+            print(f"EPOCH {epoch+1}/{num_epochs}")
+            print(f"{'='*70}")
+            print(f"\n{'='*70}")
+            print(f"EPOCH {epoch+1}/{num_epochs}")
+            print(f"{'='*70}")
             print_loss_total = 0  # Reset every epoch
             self.encoder.train()
             self.decoder.train()
             start = time.time()
+            print(f"Starting iteration over dataloader (length: {len(self.dataloader)})...")
 
             for i, batch in enumerate(self.dataloader):
+                print(f"\n--- Batch {i+1} ---")
+                print(f"\n--- Batch {i+1} ---")
+                print(f"Batch {i+1}: Unpacking batch data...")
                 x_train = [TrainData for TrainData, _ in batch]
+                print(f"Batch {i+1}: x_train list length: {len(x_train)}")
                 x_train = torch.from_numpy(np.array(x_train, np.float32)).to(device)
+                print(f"Batch {i+1}: x_train moved to device, shape: {x_train.shape}")
                 
                 y_train = [TrainLabel for _, TrainLabel in batch]
+                print(f"Batch {i+1}: y_train list length: {len(y_train)}")
+                print(f"Batch {i+1}: y_train list length: {len(y_train)}")
 
+                print(f"Batch {i+1}: Processing labels...")
                 y_train1 = np.array(y_train)[:, :, 1:3]                
                 y_pre = np.array(y_train)[:, :, 3:4]
                 y_ground = np.array(y_train)[:, :, 4:5]
+                print(f"Batch {i+1}: Labels split - y_train1: {y_train1.shape}, y_pre: {y_pre.shape}, y_ground: {y_ground.shape}")
 
                 decoder_input1 = torch.from_numpy(np.array(y_train1, np.float32)).to(device)
+                print(f"Batch {i+1}: decoder_input1 moved to device")
                 y_pre = torch.squeeze(torch.from_numpy(np.array(y_pre, np.float32)).to(device))
                 y_ground = torch.squeeze(torch.from_numpy(np.array(y_ground, np.float32)).to(device))
 
                 self.encoder_optimizer.zero_grad()
                 self.decoder_optimizer.zero_grad()
+                print(f"Batch {i+1}: Optimizers zeroed")
 
                 loss = 0
 
                 # Forward pass
+                print(f"Batch {i+1}: Calling encoder forward pass...")
                 encoder_h, encoder_c, ww = self.encoder(x_train)
+                print(f"Batch {i+1}: Encoder completed - h: {len(encoder_h)} items, c: {len(encoder_c)} items, ww shape: {ww.shape}")
+                print(f"Batch {i+1}: Calling decoder forward pass...")
                 out = self.decoder(decoder_input1, encoder_h, encoder_c, ww)
+                print(f"Batch {i+1}: Decoder completed - out: {out.shape}")
 
+                print(f"Batch {i+1}: Post-processing output...")
                 out = out * self.std + self.mean
                 out = out + y_pre
+                print(f"Batch {i+1}: Calculating loss...")
                 loss = self.criterion(out, y_ground)
+                print(f"Batch {i+1}: Loss = {loss.item():.4f}")
 
+                print(f"Batch {i+1}: Starting backward pass...")
                 loss.backward()
+                print(f"Batch {i+1}: Backward completed, updating parameters...")
                 self.encoder_optimizer.step()
                 self.decoder_optimizer.step()
+                print(f"Batch {i+1}: Optimizer step completed")
                 print_loss_total += loss.item()
+                print(f"Batch {i+1}: COMPLETE! Total loss so far: {print_loss_total:.4f}")
+                print(f"Batch {i+1}: COMPLETE! Total loss so far: {print_loss_total:.4f}")
+                print(f"Preparing for next batch...\n")
 
+            print(f"\nEpoch {epoch+1} completed! Total batches processed: {i+1}")
+            print(f"Total epoch loss: {print_loss_total:.4f}")
             if early_stop > 4:
                 break
             self.encoder.eval()

@@ -2,9 +2,9 @@ import argparse
 import os
 import torch
 import pandas as pd
-from .data_provider.DS import DS
-from .models.Group_GMM5 import DAN
-from .models.Inference import MCANN_I
+from data_provider.DS import DS
+from models.Group_GMM5 import DAN
+from models.Inference import MCANN_I
 import zipfile
 
 
@@ -279,8 +279,18 @@ if __name__ == "__main__":
     ds = DS(opt, trainX)
 
     # model training
+    print("\n" + "*"*70)
+    print("INITIALIZING MODEL")
+    print("*"*70)
     model = DAN(opt, ds)
+    print("Model initialized successfully")
+    print("\n" + "*"*70)
+    print("CALLING model.train()")
+    print("*"*70)
     model.train()
+    print("\n" + "*"*70)
+    print("TRAINING COMPLETED")
+    print("*"*70)
 
     # Inferencing, saving the result to Inference_dir
     ds.refresh_dataset(trainX)

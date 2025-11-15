@@ -1,7 +1,7 @@
 import numpy as np
 import random
 import pandas as pd
-from ..utils.utils2 import (
+from utils.utils2 import (
     diff_order_1,
     log_std_normalization,
     gen_month_tag,
@@ -473,15 +473,22 @@ class DS:
         print("DATA shape, ", np.array(self.DATA).shape)
         print("Label, ", np.array(Label).shape)
 
+        print("\n--- Creating DataLoader ---")
+        print(f"Dataset size: {len(DATA)} samples")
+        print(f"Batch size: {self.batch_size}")
         dataset1 = RnnDataset(DATA, Label)
+        print("RnnDataset created successfully")
         self.train_data_loader = DataLoader(
             dataset1,
             self.batch_size,
             shuffle=True,
-            num_workers=2,
+            num_workers=0,
             pin_memory=True,
             collate_fn=lambda x: x,
         )
+        print(f"DataLoader created: num_workers=0, pin_memory=True, collate_fn=custom")
+        print(f"Expected number of batches: {len(self.train_data_loader)}")
+        print("--- DataLoader Creation Complete ---\n")
 
     def refresh_dataset(self, trainX):
         self.trainX = trainX

@@ -1,6 +1,6 @@
 import argparse
 import matplotlib.pyplot as plt
-from .run import Options
+from run import Options
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Test the model and calculate metrics")

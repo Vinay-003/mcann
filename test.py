@@ -1,8 +1,8 @@
 import argparse
 import matplotlib.pyplot as plt
 import numpy as np
-from .run import Options
-from .utils.metric import RMSE, MAPE
+from run import Options
+from utils.metric import RMSE, MAPE
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Test the model and calculate metrics")
